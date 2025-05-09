@@ -1,7 +1,0 @@
-🔐 Nextcloud App Password Manager: Security Made Simple
-
-Secure your Nextcloud experience with application-specific passwords that put you in control. Create unique credentials for each app, revoke access instantly, and protect your main account—all through an intuitive interface that makes security effortless.
-
-Take control of your digital security in just a few clicks. No technical expertise required.
-
-Nextcloud App Password Manager — Because your data deserves better protection.
