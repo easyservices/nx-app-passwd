@@ -1,0 +1,9 @@
+# Nextcloud App Password Manager Dependencies
+
+# Core dependencies
+streamlit>=1.22.0
+requests>=2.28.2
+
+# Security
+certifi>=2022.12.7
+urllib3>=1.26.15
