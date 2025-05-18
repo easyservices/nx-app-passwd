@@ -2,6 +2,12 @@
 # This script ensures the application runs with the correct PowerShell version
 # and activates the Python virtual environment if one exists
 
+# Set the working directory to the script's location
+$scriptPath = $MyInvocation.MyCommand.Path
+$scriptDir = Split-Path -Parent $scriptPath
+Set-Location -Path $scriptDir
+Write-Host "Working directory set to: $scriptDir"
+
 # Check if running in PowerShell 7.1 or higher
 $psVersion = $PSVersionTable.PSVersion
 $requiredVersion = [Version]"7.1"
@@ -13,14 +19,14 @@ function Find-And-Activate-Venv {
         "venv",
         ".venv",
         "env",
-        ".env",
-        "..\venv",
-        "..\env"
+        ".env"
     )
     
     foreach ($venvPath in $venvLocations) {
+        # Use absolute paths based on script directory
+        $fullVenvPath = Join-Path $scriptDir $venvPath
         # Check for Windows activation script
-        $activateScript = Join-Path $venvPath "Scripts\Activate.ps1"
+        $activateScript = Join-Path $fullVenvPath "Scripts\Activate.ps1"
         if (Test-Path $activateScript) {
             Write-Host "Found virtual environment at: $venvPath"
             Write-Host "Activating virtual environment..."
@@ -29,9 +35,9 @@ function Find-And-Activate-Venv {
         }
         
         # Check for Unix/Linux/macOS activation script (in case of PowerShell on those platforms)
-        $unixActivateScript = Join-Path $venvPath "bin/Activate.ps1"
+        $unixActivateScript = Join-Path $fullVenvPath "bin/Activate.ps1"
         if (Test-Path $unixActivateScript) {
-            Write-Host "Found virtual environment at: $venvPath"
+            Write-Host "Found virtual environment at: $fullVenvPath"
             Write-Host "Activating virtual environment..."
             & $unixActivateScript
             return $true
@@ -63,8 +69,16 @@ function Start-Streamlit {
             Write-Host "Streamlit is installed: $pipList"
         } else {
             Write-Host "Streamlit is not installed in the current Python environment."
-            Write-Host "Installing Streamlit..."
-            pip install streamlit
+            Write-Host "Checking if requirements.txt exists..."
+            
+            $requirementsPath = Join-Path $scriptDir "requirements.txt"
+            if (Test-Path $requirementsPath) {
+                Write-Host "Installing dependencies from requirements.txt..."
+                pip install -r $requirementsPath
+            } else {
+                Write-Host "Installing Streamlit..."
+                pip install streamlit
+            }
         }
     } catch {
         Write-Host "Error checking Python environment: $_"
@@ -96,16 +110,24 @@ if ($psVersion -lt $requiredVersion) {
     
     # Try to launch with pwsh (PowerShell 7)
     try {
-        & pwsh -Command {
+        & pwsh -NoExit -Command {
+            # Get the script path from the parent scope
+            $scriptPath = $args[0]
+            $scriptDir = Split-Path -Parent $scriptPath
+            
+            # Change to the script directory
+            Set-Location -Path $scriptDir
+            Write-Host "Working directory set to: $scriptDir"
+            
             # Source the script to get the functions
-            . $PSScriptRoot\runMe.ps1
+            . $scriptPath
             
             $psVersion = $PSVersionTable.PSVersion
             Write-Host "Launched with PowerShell $($psVersion.ToString())"
             
             # Run Streamlit function
             Start-Streamlit
-        }
+        } -Args $MyInvocation.MyCommand.Path
     } catch {
         Write-Host "Failed to launch PowerShell 7. Please make sure it's installed."
         Write-Host "You can install it from: https://github.com/PowerShell/PowerShell/releases"
