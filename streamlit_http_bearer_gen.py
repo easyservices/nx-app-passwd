@@ -65,20 +65,17 @@ if generate_button:
         # Token display section
         st.subheader("Generated Token")
         
-        col1, col2 = st.columns([3, 1])
-        with col1:
-            st.code(bearer_token, language="text")
-        with col2:
-            if st.button("📋 Copy", help="Copy token to clipboard"):
-                st.write("Token copied to clipboard!")
+        st.code(bearer_token, language="text")
         
         # Show different usage examples
         with st.expander("Usage Examples", expanded=True):
             st.markdown("### HTTP Header")
-            st.code(f"Authorization: {bearer_token}", language="text")
+            header_example = f"Authorization: {bearer_token}"
+            st.code(header_example, language="text")
             
             st.markdown("### cURL Example")
-            st.code(f'curl -H "Authorization: {bearer_token}" https://api.example.com/endpoint', language="bash")
+            curl_example = f'curl -H "Authorization: {bearer_token}" https://api.example.com/endpoint'
+            st.code(curl_example, language="bash")
             
             st.markdown("### Python Requests Example")
             python_code = f'''import requests
