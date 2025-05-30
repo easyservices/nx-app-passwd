@@ -99,8 +99,8 @@ function Start-Streamlit {
     }
     
     # Run the Streamlit application
-    Write-Host "Starting Streamlit application..."
-    streamlit run streamlit_app.py
+    Write-Host "Starting Streamlit NX App password management application..."
+    streamlit run streamlit_nx_app_pass.py
 }
 
 # Main execution

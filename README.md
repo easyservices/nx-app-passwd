@@ -1,54 +1,70 @@
-# Nextcloud App Password Manager
+# Nextcloud App Password Manager & HTTP Bearer Token Generator
 
-A Streamlit-based web application for managing Nextcloud application passwords.
+A comprehensive Streamlit-based toolkit providing two powerful web applications for authentication management.
 
-## Secure Your Digital Life with Ease
+## 🔑 Dual Authentication Tools
 
-**Nextcloud App Password Manager** is your gateway to enhanced security and seamless application integration with your Nextcloud account.
+This project includes **two specialized applications** designed to streamline your authentication workflows:
 
-### Why You Need This Tool
+### 1. **Nextcloud App Password Manager**
+Your gateway to enhanced security and seamless application integration with your Nextcloud account.
 
-In today's connected world, you're likely using multiple applications that connect to your Nextcloud storage. Using your main password everywhere creates unnecessary risk. Our elegant solution lets you:
+### 2. **HTTP Bearer Basic Auth Token Generator**
+A versatile tool for generating and testing HTTP Bearer Basic Authentication tokens for API integrations.
 
-✅ **Create unique passwords** for each application without compromising your main account  
-✅ **Revoke access** instantly for any application without affecting others  
-✅ **Maintain control** over which applications can access your data  
-✅ **Enhance security** with application-specific credentials  
+## 🚀 Why You Need These Tools
 
-### Streamlined Experience
+In today's connected world, secure authentication is crucial. Our elegant solutions provide:
 
-With our intuitive interface, managing application passwords has never been easier:
+✅ **Nextcloud Integration** - Create unique app passwords without compromising your main account
+✅ **API Authentication** - Generate Bearer tokens for HTTP Basic Auth workflows
+✅ **Instant Management** - Create, test, and revoke access with simple interfaces
+✅ **Enhanced Security** - Application-specific credentials and token validation
+✅ **Developer Friendly** - Code examples and testing capabilities built-in
 
-- **Simple setup** - Just enter your Nextcloud details and go
-- **One-click generation** - Create new app passwords in seconds
-- **Instant revocation** - Remove access with a single click
-- **Clear feedback** - Always know exactly what's happening
+## 🎯 Perfect For
 
-### Perfect For
+- **Home users** managing personal cloud storage and API integrations
+- **IT administrators** securing organizational Nextcloud instances
+- **Developers** integrating applications with Nextcloud or other APIs
+- **Security-conscious users** who want granular access control
+- **API developers** needing quick Bearer token generation and testing
 
-- Home users managing personal cloud storage
-- IT administrators securing organizational Nextcloud instances
-- Developers integrating applications with Nextcloud
-- Security-conscious users who want granular access control
+## ⚡ Get Started in Minutes
 
-### Get Started in Minutes
-
-No complex installation or configuration required. Our PowerShell launcher automatically sets up everything you need, so you can focus on what matters - keeping your digital life secure.
+No complex installation or configuration required. Our PowerShell launchers automatically set up everything you need.
 
 ---
 
-## Overview
+## 📋 Overview
 
-This application provides a user-friendly interface to register new application passwords or unregister existing ones for your Nextcloud account. It interacts with the Nextcloud API to perform these operations securely.
+This toolkit provides two specialized Streamlit applications:
 
-## Features
+1. **Nextcloud App Password Manager** - Register/unregister Nextcloud application passwords
+2. **HTTP Bearer Token Generator** - Generate and test HTTP Basic Authentication Bearer tokens
 
+## ✨ Features
+
+### Nextcloud App Password Manager
 - Register new application passwords for Nextcloud
 - Unregister existing application passwords
-- User-friendly web interface
-- Secure handling of credentials
-- Detailed error reporting
+- User-friendly web interface with detailed feedback
+- Secure credential handling
+- Comprehensive error reporting
+
+### HTTP Bearer Token Generator
+- Generate HTTP Bearer Basic Authentication tokens
+- Test tokens against live API endpoints
+- Multiple HTTP method support (GET, POST, PUT, DELETE)
+- Code examples in multiple languages (Python, JavaScript, cURL)
+- Real-time token validation and testing
+- Detailed response analysis
+
+### Common Features
 - Cross-platform compatibility
+- Automatic dependency management
+- Virtual environment support
+- Professional UI with Streamlit
 
 ## Installation
 
@@ -58,20 +74,27 @@ This application provides a user-friendly interface to register new application 
 - PowerShell 7.1 or higher (for Windows users)
 - Nextcloud server instance with API access
 
-### Option 1: Using the PowerShell Script (Recommended for Windows)
+### Option 1: Using PowerShell Scripts (Recommended for Windows)
 
 1. Clone or download this repository
-2. Run the included PowerShell script:
+2. Choose and run the appropriate PowerShell script:
 
+**For Nextcloud App Password Management:**
 ```powershell
-.\runMe.ps1
+.\start_nx_app_pass.ps1
 ```
 
-The script will:
+**For HTTP Bearer Token Generation:**
+```powershell
+.\start_http_bearer_app.ps1
+```
+
+Both scripts will:
 - Check for PowerShell 7.1+ and use the correct version
 - Find and activate a Python virtual environment if one exists
+- Install dependencies from requirements.txt if available
 - Install Streamlit if it's not already installed
-- Launch the application
+- Launch the respective application
 
 ### Option 2: Manual Installation
 
@@ -95,28 +118,54 @@ source venv/bin/activate
 pip install streamlit requests
 ```
 
-4. Run the application:
+4. Run the desired application:
 
+**For Nextcloud App Password Management:**
 ```bash
-streamlit run streamlit_app.py
+streamlit run streamlit_nx_app_pass.py
 ```
 
-## Usage
+**For HTTP Bearer Token Generation:**
+```bash
+streamlit run streamlit_http_bearer_gen.py
+```
 
-1. Launch the application using one of the installation methods above
+## 📖 Usage
+
+### Nextcloud App Password Manager
+
+1. Launch the application using [`start_nx_app_pass.ps1`](start_nx_app_pass.ps1) or manually with [`streamlit_nx_app_pass.py`](streamlit_nx_app_pass.py)
 2. The application will open in your default web browser at http://localhost:8501
 3. In the sidebar, enter the following information:
-   - Nextcloud URL (e.g., https://nextcloud.example.com)
-   - Your Nextcloud username
-   - Your Nextcloud password
-   - Application name (will be used as the User-Agent header)
+   - **Nextcloud URL** (e.g., https://nextcloud.example.com)
+   - **Your Nextcloud username**
+   - **Your Nextcloud password**
+   - **Application name** (will be used as the User-Agent header)
 4. Select the operation you want to perform:
-   - "Register a new app" - to create a new application password
-   - "Unregister an existing app" - to delete an existing application password
-5. Click "Submit Request"
+   - **"Register a new app"** - to create a new application password
+   - **"Unregister an existing app"** - to delete an existing application password
+5. Click **"Submit Request"**
 6. View the results in the main panel:
    - For successful registrations, an application password will be displayed
    - **Important**: Save this password securely as it won't be shown again
+
+### HTTP Bearer Token Generator
+
+1. Launch the application using [`start_http_bearer_app.ps1`](start_http_bearer_app.ps1) or manually with [`streamlit_http_bearer_gen.py`](streamlit_http_bearer_gen.py)
+2. The application will open in your default web browser at http://localhost:8501
+3. In the sidebar, enter your authentication credentials:
+   - **Username** for the API/service
+   - **Password** for the API/service
+4. **Optional**: Enable token testing by checking "Test the generated token"
+   - Enter the **API endpoint URL** to test against
+   - Select the **HTTP method** (GET, POST, PUT, DELETE)
+   - For POST/PUT requests, provide a **JSON request body**
+5. Click **"Generate Token"**
+6. View the results:
+   - **Generated Bearer token** for use in HTTP headers
+   - **Usage examples** in multiple programming languages
+   - **Token details** and encoding information
+   - **Test results** if testing was enabled
 
 ## Technical Details
 
@@ -159,13 +208,21 @@ The application handles various error scenarios:
 
 ### Project Structure
 
-- `streamlit_app.py` - Main Streamlit application
-- `runMe.ps1` - PowerShell script for easy launching on Windows
+- [`streamlit_nx_app_pass.py`](streamlit_nx_app_pass.py) - Nextcloud App Password Manager application
+- [`streamlit_http_bearer_gen.py`](streamlit_http_bearer_gen.py) - HTTP Bearer Token Generator application
+- [`start_nx_app_pass.ps1`](start_nx_app_pass.ps1) - PowerShell launcher for Nextcloud app
+- [`start_http_bearer_app.ps1`](start_http_bearer_app.ps1) - PowerShell launcher for Bearer token app
+- [`requirements.txt`](requirements.txt) - Python dependencies
+- [`requirements-dev.txt`](requirements-dev.txt) - Development dependencies
 
 ### Dependencies
 
-- [Streamlit](https://streamlit.io/) - Web application framework
-- [Requests](https://docs.python-requests.org/) - HTTP library for API calls
+- **[Streamlit](https://streamlit.io/)** ≥1.22.0 - Web application framework
+- **[Requests](https://docs.python-requests.org/)** ≥2.28.2 - HTTP library for API calls
+- **[Certifi](https://pypi.org/project/certifi/)** ≥2022.12.7 - SSL certificate verification
+- **[urllib3](https://urllib3.readthedocs.io/)** ≥1.26.15 - HTTP client library
+
+See [`requirements.txt`](requirements.txt) for complete dependency list.
 
 ## License
 
